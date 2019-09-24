@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,35 +22,31 @@ class _MyAppState extends State<MyApp> {
 
   final LatLng _center = const LatLng(-31.364922, -64.206986);
 
+  List buses;
+  void getData() async {
+    Dio dio = new Dio();
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
+    Response response=await dio.get("https://200.123.180.122:5743/rest/posicionesBuses/70");  //CERTIFICATE_VERIFY_FAILED:ok
+    buses = response.data['posiciones'];
+
+  }
+
   void _onMapCreated(GoogleMapController controller) {
+
     mapController = controller;
     markers.addAll([
       Marker(
           markerId: MarkerId('value'),
-          position: LatLng(-31.364922, -64.206986)),
+          position: LatLng(-31.407450, -64.269878)),
       Marker(
           markerId: MarkerId('value2'),
-          position: LatLng(-31.364613, -64.206787)),
+          position: LatLng(-31.407450, -64.269878)),
     ]);
   }
 
-  List data;
-
-  Future<String> getData() async {
-    var res = await http.get(
-        Uri.encodeFull("https://200.123.180.122:5743/rest/posicionesBuses/20"),
-        headers: {
-          "Accept": "application/json"
-        }
-    );
-    setState(() {
-      var resBody = jsonDecode(res.body);
-      data = resBody["posiciones"];
-      print(data);
-    });
-
-    return "Success!";
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
