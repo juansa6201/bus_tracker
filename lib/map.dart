@@ -17,38 +17,47 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Set<Marker> markers = Set();
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(-31.364922, -64.206986);
 
   List buses;
+  List<Marker> allMarkers = [];
+
   void getData() async {
     Dio dio = new Dio();
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
       client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       return client;
     };
-    Response response=await dio.get("https://200.123.180.122:5743/rest/posicionesBuses/70");  //CERTIFICATE_VERIFY_FAILED:ok
+    Response response=await dio.get("https://200.123.180.122:5743/rest/posicionesBuses/70/");  //CERTIFICATE_VERIFY_FAILED:ok
     buses = response.data['posiciones'];
 
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-
-    mapController = controller;
-    markers.addAll([
-      Marker(
-          markerId: MarkerId('value'),
-          position: LatLng(-31.407450, -64.269878)),
-      Marker(
-          markerId: MarkerId('value2'),
-          position: LatLng(-31.407450, -64.269878)),
-    ]);
-  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
+    print("dou");
+    print(buses[0]["latitud"]);
+    print(buses[1]["latitud"]);
+    allMarkers.addAll([Marker(markerId: MarkerId('1'),
+        draggable: false,
+        onTap: (){
+          getData();
+          print(buses[2]["interno"]);
+        },
+        position: LatLng(buses[0]["latitud"], buses[0]["longitud"])
+    ),
+      Marker(markerId: MarkerId('2'),
+          draggable: false,
+          onTap: (){
+            getData();
+            print(buses[0]["interno"]);
+          },
+          position: LatLng(buses[1]["latitud"], buses[1]["longitud"])),
+]);
     return Scaffold(
       appBar: AppBar(
         title: Text('Maps in Flutter'),
@@ -57,12 +66,16 @@ class _MyAppState extends State<MyApp> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
-            onMapCreated: _onMapCreated,
+            onMapCreated: (GoogleMapController controller) {
+getData();
+            },
+
             initialCameraPosition: CameraPosition(
               target: _center,
               zoom: 11.0,
             ),
-            markers: markers,
+              
+            markers: Set.from(allMarkers)
           ),
           Container(
             margin: EdgeInsets.only(top: 80, right: 10),
@@ -75,6 +88,7 @@ class _MyAppState extends State<MyApp> {
                     backgroundColor: Colors.teal[200],
                     onPressed: () {
                       getData();
+                      print(buses);
                       print('Changing the Map Type');
                     }),
               ],
@@ -82,6 +96,7 @@ class _MyAppState extends State<MyApp> {
           ),
 
         ],
+
       ),
     );
   }
