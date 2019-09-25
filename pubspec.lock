@@ -61,12 +61,12 @@ packages:
     source: sdk
     version: "0.0.0"
   google_maps_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.21+2"
+    version: "0.5.21+3"
   http:
     dependency: "direct dev"
     description:

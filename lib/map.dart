@@ -32,49 +32,37 @@ class _MyAppState extends State<MyApp> {
     };
     Response response=await dio.get("https://200.123.180.122:5743/rest/posicionesBuses/70/");  //CERTIFICATE_VERIFY_FAILED:ok
     buses = response.data['posiciones'];
-
+    buses.forEach((value){
+      var marker = Marker(markerId: MarkerId(value['interno']),
+          draggable: false,
+          onTap: (){
+            print(value['interno']);
+          },
+          position: LatLng(value["latitud"], value["longitud"])
+      );
+    allMarkers.add(marker);
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
     getData();
-    print("dou");
-    print(buses[0]["latitud"]);
-    print(buses[1]["latitud"]);
-    allMarkers.addAll([Marker(markerId: MarkerId('1'),
-        draggable: false,
-        onTap: (){
-          getData();
-          print(buses[2]["interno"]);
-        },
-        position: LatLng(buses[0]["latitud"], buses[0]["longitud"])
-    ),
-      Marker(markerId: MarkerId('2'),
-          draggable: false,
-          onTap: (){
-            getData();
-            print(buses[0]["interno"]);
-          },
-          position: LatLng(buses[1]["latitud"], buses[1]["longitud"])),
-]);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Maps in Flutter'),
+        title: Text('Bus Tracker Cordoba'),
         centerTitle: true,
       ),
       body: Stack(
         children: <Widget>[
           GoogleMap(
             onMapCreated: (GoogleMapController controller) {
-getData();
             },
 
             initialCameraPosition: CameraPosition(
               target: _center,
               zoom: 11.0,
             ),
-              
             markers: Set.from(allMarkers)
           ),
           Container(
