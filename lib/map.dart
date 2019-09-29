@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(-31.364922, -64.206986);
+  final LatLng _center = const LatLng(-31.409691, -64.190843);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
+    var zoom = MinMaxZoomPreference(11.3, null);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -35,15 +35,16 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(
+          myLocationEnabled: true,
           onMapCreated: _onMapCreated,
+          minMaxZoomPreference: zoom,
           initialCameraPosition: CameraPosition(
             target: _center,
-            zoom: 11.0,
+            zoom: 11.3,
           ),
         markers: Set.from(allMarkers),
         ),
       ),
     );
   }
-
 }
