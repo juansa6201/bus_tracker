@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:bus_tracking/lineas/linea70.dart';
+import 'package:bus_tracking/lineas/linea.dart';
 
 void main() => runApp(MyApp());
 

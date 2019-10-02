@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:bus_tracking/map.dart';
-import 'package:bus_tracking/lineas/linea70.dart';
+import 'package:bus_tracking/lineas/linea.dart';
 
 void main() {
   //debugPaintSizeEnabled = true;

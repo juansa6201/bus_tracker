@@ -16,6 +16,7 @@ void getData(linea) async {
   };
   Response response=await dio.get("https://200.123.180.122:5743/rest/posicionesBuses/"+linea);  //CERTIFICATE_VERIFY_FAILED:ok
   buses = response.data['posiciones'];
+  markers.clear();
   buses.forEach((value){
     var marker = Marker(markerId: MarkerId(value['interno']),
       draggable: false,
