@@ -47,15 +47,15 @@ class _MyAppState extends State<MyApp> {
   void changedDropDownItem(String selectedFruit) {
     Timer(Duration(seconds: 1), () {
       setState(() {
-        getData(selectedFruit);
+        getData(_selectedFruit);
       });     });
     Timer.periodic(Duration(milliseconds: 5000), (timer){
       setState(() {
-        getData(selectedFruit);
+        getData(_selectedFruit);
       });    });
     setState(() {
       _selectedFruit = selectedFruit;
-      getData(selectedFruit);
+      getData(_selectedFruit);
 
     });
   }
