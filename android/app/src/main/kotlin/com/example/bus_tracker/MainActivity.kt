@@ -1,4 +1,4 @@
-package com.example.bus_tracking
+package com.example.bus_tracker
 
 import android.os.Bundle
 

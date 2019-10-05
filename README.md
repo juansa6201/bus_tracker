@@ -1,4 +1,4 @@
-# bus_tracking
+# bus_tracker
 
 A new Flutter application.
 
