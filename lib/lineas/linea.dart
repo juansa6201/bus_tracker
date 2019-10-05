@@ -20,8 +20,9 @@ void getData(linea) async {
   buses.forEach((value){
     var marker = Marker(markerId: MarkerId(value['interno']),
       draggable: false,
-      icon: BitmapDescriptor.defaultMarker,
+      icon: BitmapDescriptor.fromAsset('assets/bus.png',),
       position: LatLng(value["latitud"], value["longitud"]),
+      rotation: value["orientacion"],
       infoWindow: InfoWindow(title: "Interno" , snippet: value["interno"]),
     );
     markers.add(marker);
