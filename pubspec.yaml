@@ -1,4 +1,4 @@
-name: bus_tracking
+name: bus_tracker
 description: A new Flutter application.
 
 # The following defines the version and build number for your application.
@@ -28,7 +28,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  google_maps_flutter: ^0.5.5
   http: ^0.12.0+2
 
 

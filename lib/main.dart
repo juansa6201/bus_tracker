@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bus_tracking/map.dart';
+import 'package:bus_tracker/map.dart';
 
 void main () => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
