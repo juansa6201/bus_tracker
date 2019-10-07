@@ -81,8 +81,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Bus Tracker Cordoba'),
-            backgroundColor: Colors.green[700],
+            title: Text('Lineas'),
+            backgroundColor: Colors.blueAccent,
+            automaticallyImplyLeading: true,
+              leading: IconButton(icon:Icon(Icons.arrow_back),
+                onPressed:() => Navigator.pop(context, markers.clear()),
+              )
           ),
           body: Container(
             child: Map(),

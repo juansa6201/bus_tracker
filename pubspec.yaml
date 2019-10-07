@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   dio: 2.0.0
   google_maps_flutter: 0.5.21+7
+  carousel_pro: ^1.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -46,6 +47,10 @@ flutter:
   assets:
     - assets/ersa.png
     - assets/coniferal.png
+    - assets/bus_stop.png
+    - assets/lineas.png
+    - assets/ruta.png
+    - assets/tarjeta.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
