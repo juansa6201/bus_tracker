@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bus_tracker/map.dart';
+import 'package:bus_tracker/pages/linea.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:bus_tracker/fetch/fetch.dart';
+import 'package:bus_tracker/pages/points.dart';
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -53,14 +55,21 @@ class FirstScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   "Paradas",
-                                  style: TextStyle(fontWeight: FontWeight.bold, height: 0, fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      height: 0,
+                                      fontSize: 15),
                                 ),
                               ])),
                           new FlatButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyApp()),
-                              ),
+                              onPressed: () {
+                                markers.clear();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyApp()),
+                                );
+                              },
                               child: Column(children: <Widget>[
                                 Image.asset(
                                   "assets/lineas.png",
@@ -69,7 +78,10 @@ class FirstScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   "Lineas",
-                                  style: TextStyle(fontWeight: FontWeight.bold, height: 0, fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      height: 0,
+                                      fontSize: 15),
                                 )
                               ]))
                         ],
@@ -79,16 +91,26 @@ class FirstScreen extends StatelessWidget {
                       new Row(
                         children: <Widget>[
                           new FlatButton(
-                              onPressed: () => print("xd"),
+                              onPressed: () {
+                                markers.clear();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Points()),
+                                );
+                              },
                               child: Column(children: <Widget>[
                                 Image.asset(
-                                  "assets/ruta.png",
+                                  "assets/card.png",
                                   height: 200,
                                   width: 150,
                                 ),
                                 Text(
-                                  "Ruta",
-                                  style: TextStyle(fontWeight: FontWeight.bold, height: 0, fontSize: 15),
+                                  "Puntos de venta",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      height: 0,
+                                      fontSize: 15),
                                 )
                               ])),
                         ],

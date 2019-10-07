@@ -51,6 +51,9 @@ flutter:
     - assets/lineas.png
     - assets/ruta.png
     - assets/tarjeta.png
+    - assets/card.png
+    - assets/point.png
+    - assets/muni.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

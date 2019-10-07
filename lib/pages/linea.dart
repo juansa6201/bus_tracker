@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:bus_tracker/lineas/linea.dart';
+import 'package:bus_tracker/fetch/fetch.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +14,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void setState(fn) {
+    if(mounted){
+      super.setState(fn);
+    }
+  }
+
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(-31.409691, -64.190843);
@@ -85,7 +93,7 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.blueAccent,
             automaticallyImplyLeading: true,
               leading: IconButton(icon:Icon(Icons.arrow_back),
-                onPressed:() => Navigator.pop(context, markers.clear()),
+                onPressed:() => Navigator.pop(context),
               )
           ),
           body: Container(

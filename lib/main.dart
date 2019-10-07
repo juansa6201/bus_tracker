@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bus_tracker/map.dart';
-import 'package:bus_tracker/home.dart';
+import 'package:bus_tracker/fetch/fetch.dart';
+import 'package:bus_tracker/pages/home.dart';
 
 void main () => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
