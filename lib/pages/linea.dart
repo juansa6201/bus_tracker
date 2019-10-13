@@ -15,10 +15,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void setState(fn) {
-    if(mounted){
+    if (mounted) {
       super.setState(fn);
     }
   }
@@ -31,10 +30,62 @@ class _MyAppState extends State<MyApp> {
     mapController = controller;
   }
 
-
-  List _fruits = ["-","10","11","12","13","14","15","16","17","18","19","20", "21", "22", "23", "24","25","26","27","28","29", "30","31","32","33","34","35","36","40","41","42",
-    "43","44","45","50","51","52","53","54","60","61","62","63","64","65","66","67","68","70","71","72","73","74","75","80","81","82","83","84","85"];
-
+  List _fruits = [
+    "-",
+    "Trole - Linea A",
+    "Trole - Linea B",
+    "Trole - Linea C",
+    "Aerobus",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "45",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "60",
+    "61",
+    "62",
+    "63",
+    "64",
+    "65",
+    "66",
+    "67",
+    "68",
+    "70",
+    "71",
+    "72",
+    "73",
+    "74",
+    "75"
+  ];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _selectedFruit;
 
@@ -48,7 +99,17 @@ class _MyAppState extends State<MyApp> {
   List<DropdownMenuItem<String>> buildAndGetDropDownMenuItems(List fruits) {
     List<DropdownMenuItem<String>> items = List();
     for (String fruit in fruits) {
-      items.add(DropdownMenuItem(value: fruit, child: Text(fruit)));
+      if (fruit == "Trole - Linea A") {
+        items.add(DropdownMenuItem(value: "1", child: Text(fruit)));
+      } else if (fruit == "Trole - Linea B") {
+        items.add(DropdownMenuItem(value: "2", child: Text(fruit)));
+      } else if (fruit == "Trole - Linea C") {
+        items.add(DropdownMenuItem(value: "3", child: Text(fruit)));
+      } else if (fruit == "Aerobus") {
+        items.add(DropdownMenuItem(value: "890", child: Text(fruit)));
+      } else {
+        items.add(DropdownMenuItem(value: fruit, child: Text(fruit)));
+      }
     }
     return items;
   }
@@ -58,20 +119,21 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         getData(_selectedFruit);
         getRuta(_selectedFruit);
-      });     });
-    Timer.periodic(Duration(milliseconds: 5000), (timer){
+      });
+    });
+    Timer.periodic(Duration(milliseconds: 5000), (timer) {
       setState(() {
         getData(_selectedFruit);
-      });    });
+      });
+    });
     setState(() {
       _selectedFruit = selectedFruit;
       getData(_selectedFruit);
       getRuta(_selectedFruit);
-
     });
   }
 
-  Widget Map(){
+  Widget Map() {
     var zoom = MinMaxZoomPreference(11.3, null);
 
     return GoogleMap(
@@ -93,13 +155,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Lineas'),
-            backgroundColor: Colors.blueAccent,
-            automaticallyImplyLeading: true,
-              leading: IconButton(icon:Icon(Icons.arrow_back),
-                onPressed:() => Navigator.pop(context),
-              )
-          ),
+              title: Text('Lineas'),
+              backgroundColor: Colors.blueAccent,
+              automaticallyImplyLeading: true,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              )),
           body: Container(
             child: Map(),
           ),
