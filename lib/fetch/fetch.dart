@@ -37,6 +37,19 @@ void getData(linea) async {
         infoWindow: InfoWindow(title: "Interno", snippet: value["interno"]),
       );
       markers.add(marker);
+    } else if (int.parse(linea) >= 1 && int.parse(linea) <= 3 ||
+        int.parse(linea) == 890) {
+      var marker = Marker(
+        markerId: MarkerId(value['interno']),
+        draggable: false,
+        icon: BitmapDescriptor.fromAsset(
+          'assets/trole.png',
+        ),
+        position: LatLng(value["latitud"], value["longitud"]),
+        rotation: value["orientacion"],
+        infoWindow: InfoWindow(title: "Interno", snippet: value["interno"]),
+      );
+      markers.add(marker);
     } else {
       var marker = Marker(
         markerId: MarkerId(value['interno']),
@@ -76,7 +89,8 @@ void getPoint() async {
           'assets/point.png',
         ),
         position: LatLng(value["latitud"], value["longitud"]),
-        infoWindow: InfoWindow(title: value["nombre"], snippet: value["domicilio"]),
+        infoWindow:
+            InfoWindow(title: value["nombre"], snippet: value["domicilio"]),
       );
       markersPoints.add(marker);
     } else {
@@ -87,7 +101,8 @@ void getPoint() async {
           'assets/muni.png',
         ),
         position: LatLng(value["latitud"], value["longitud"]),
-        infoWindow: InfoWindow(title: value["nombre"], snippet: value["domicilio"]),
+        infoWindow:
+            InfoWindow(title: value["nombre"], snippet: value["domicilio"]),
       );
       markersPoints.add(marker);
     }

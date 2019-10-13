@@ -38,6 +38,15 @@ void getRuta(linea) async {
         points: latlng,
         width: 4);
     rutas.add(ruta);
+  } else if (int.parse(linea) >= 1 && int.parse(linea) <= 3 ||
+      int.parse(linea) == 890) {
+    var ruta = Polyline(
+        polylineId: PolylineId('1'),
+        visible: true,
+        color: Colors.blue,
+        points: latlng,
+        width: 4);
+    rutas.add(ruta);
   } else {
     var ruta = Polyline(
         polylineId: PolylineId('1'),
