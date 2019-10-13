@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:bus_tracker/fetch/fetch.dart';
+import 'package:bus_tracker/fetch/fetch_ruta.dart';
 
 void main() => runApp(MyApp());
 
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
     Timer(Duration(seconds: 1), () {
       setState(() {
         getData(_selectedFruit);
+        getRuta(_selectedFruit);
       });     });
     Timer.periodic(Duration(milliseconds: 5000), (timer){
       setState(() {
@@ -64,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _selectedFruit = selectedFruit;
       getData(_selectedFruit);
+      getRuta(_selectedFruit);
 
     });
   }
@@ -80,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         zoom: 11.3,
       ),
       markers: markers,
+      polylines: rutas,
     );
   }
 
