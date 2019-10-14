@@ -4,6 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:bus_tracker/fetch/fetch.dart';
 import 'package:bus_tracker/pages/points.dart';
 import 'package:bus_tracker/fetch/fetch_ruta.dart';
+import 'package:bus_tracker/pages/consulta.dart';
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -47,7 +48,12 @@ class FirstScreen extends StatelessWidget {
                       new Row(
                         children: <Widget>[
                           new FlatButton(
-                              onPressed: () => print("xd"),
+                              onPressed: () =>
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Saldo()),
+                                  ),
                               child: Column(children: <Widget>[
                                 Image.asset(
                                   "assets/bus_stop.png",
@@ -55,7 +61,7 @@ class FirstScreen extends StatelessWidget {
                                   width: 150,
                                 ),
                                 Text(
-                                  "Paradas",
+                                  "Consultar Saldo",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       height: 0,

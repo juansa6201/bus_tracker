@@ -61,7 +61,7 @@ class _PointsState extends State<Points> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-            title: Text('Lineas'),
+            title: Text('Puntos de Venta'),
             backgroundColor: Colors.blueAccent,
             automaticallyImplyLeading: true,
             leading: IconButton(
