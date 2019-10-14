@@ -22,7 +22,6 @@ void getData(linea) async {
       "https://200.123.180.122:5743/rest/posicionesBuses/" +
           linea); //CERTIFICATE_VERIFY_FAILED:ok
   buses = response.data['posiciones'];
-  markers.clear();
   buses.forEach((value) {
     if (int.parse(linea) >= 10 && int.parse(linea) <= 19 ||
         int.parse(linea) >= 60 && int.parse(linea) <= 68) {

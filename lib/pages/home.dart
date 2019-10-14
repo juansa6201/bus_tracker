@@ -3,6 +3,7 @@ import 'package:bus_tracker/pages/linea.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:bus_tracker/fetch/fetch.dart';
 import 'package:bus_tracker/pages/points.dart';
+import 'package:bus_tracker/fetch/fetch_ruta.dart';
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -64,6 +65,7 @@ class FirstScreen extends StatelessWidget {
                           new FlatButton(
                               onPressed: () {
                                 markers.clear();
+                                rutas.clear();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

@@ -22,7 +22,6 @@ void getRuta(linea) async {
       "https://200.123.180.122:5743/rest/rutaLinea/" +
           linea); //CERTIFICATE_VERIFY_FAILED:ok
   buses = response.data['nodos'];
-  rutas.clear();
 
   buses.forEach((value) {
     LatLng latLang = LatLng(value['latitud'], value['longitud']);
