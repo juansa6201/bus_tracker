@@ -29,8 +29,8 @@ class FirstScreen extends StatelessWidget {
                           child: Carousel(
                             images: [
                               Image.asset('assets/tarjeta.png'),
-                              Image.asset('assets/tarjeta.png'),
-                              Image.asset('assets/tarjeta.png')
+                              Image.asset('assets/route.png'),
+                              Image.asset('assets/busStop.png')
                             ],
                             dotSize: 4.0,
                             dotSpacing: 15.0,
