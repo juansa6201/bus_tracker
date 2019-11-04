@@ -66,7 +66,8 @@ void getData(linea) async {
   });
 }
 
-void getPoint() async {
+void getPoint(lat, long, point) async {
+  var url = "https://200.123.180.122:5743/rest/getPuntosVentaCercanos/" + lat.toString() + "/" + long.toString() + "/" + point.toString();
   List points;
 
   Dio dio = new Dio();
@@ -76,8 +77,8 @@ void getPoint() async {
         (X509Certificate cert, String host, int port) => true;
     return client;
   };
-  Response response = await dio.get(
-      "https://200.123.180.122:5743/rest/getPuntosVentaCercanos/-31.2069918/-64.2069918/1"); //CERTIFICATE_VERIFY_FAILED:ok
+  Response response = await dio.get(url
+      ); //CERTIFICATE_VERIFY_FAILED:ok
   points = response.data['puntosVenta'];
   markersPoints.clear();
   points.forEach((value) {

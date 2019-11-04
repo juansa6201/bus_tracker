@@ -13,6 +13,7 @@ dependencies:
   google_maps_flutter: 0.5.21+7
   carousel_pro: ^1.0.0
   permission_handler: ^3.1.0
+  geolocator: ^4.0.3
 
 
 dev_dependencies:
