@@ -17,7 +17,7 @@ void getSaldo() async {
     return client;
   };
   Response response = await dio.get(
-      "https://200.123.180.122:5743/rest/getSaldoCaptcha/2479739/e4xdn"); //CERTIFICATE_VERIFY_FAILED:ok
+      "https://200.123.180.122:5743/rest/getSaldoCaptcha/2479739/ybpwa"); //CERTIFICATE_VERIFY_FAILED:ok
   print(response);
 
 }
@@ -50,7 +50,7 @@ class _SaldoState extends State<Saldo> {
           title: new Text("Saldo"),
           backgroundColor: Colors.blueAccent,
         ),
-        body: Stack(
+        body: new Center(child: Text("Proximamente",style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold), textAlign: TextAlign.center,))/*Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -85,6 +85,6 @@ class _SaldoState extends State<Saldo> {
               ],
             ),
           ],
-        ));
+        )*/);
   }
 }

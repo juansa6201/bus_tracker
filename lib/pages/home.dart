@@ -5,8 +5,29 @@ import 'package:bus_tracker/fetch/fetch.dart';
 import 'package:bus_tracker/pages/points.dart';
 import 'package:bus_tracker/fetch/fetch_ruta.dart';
 import 'package:bus_tracker/pages/consulta.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class FirstScreen extends StatelessWidget {
+
+  Future<void> _ackAlert(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Permisos no garantizados'),
+          content: const Text('No tenemos permisos para obtener tu ubicacion'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     var stado = true;
@@ -26,20 +47,13 @@ class FirstScreen extends StatelessWidget {
                       new SizedBox(
                           height: 200.0,
                           width: 350.0,
-                          child: Carousel(
-                            images: [
-                              Image.asset('assets/tarjeta.png'),
-                              Image.asset('assets/route.png'),
-                              Image.asset('assets/busStop.png')
-                            ],
-                            dotSize: 4.0,
-                            dotSpacing: 15.0,
-                            dotColor: Colors.black,
-                            dotIncreasedColor: Colors.blueAccent,
-                            autoplayDuration: Duration(milliseconds: 3000),
-                            indicatorBgPadding: 5.0,
-                            dotBgColor: Colors.white,
-                            borderRadius: true,
+                          child: Center(
+                            child: Text(
+                              "BUS TRACKER CORDOBA",
+                              style: TextStyle(
+                                  fontSize: 50.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
                           )),
                     ],
                   ),
@@ -48,8 +62,7 @@ class FirstScreen extends StatelessWidget {
                       new Row(
                         children: <Widget>[
                           new FlatButton(
-                              onPressed: () =>
-                                  Navigator.push(
+                              onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Saldo()),
@@ -99,13 +112,23 @@ class FirstScreen extends StatelessWidget {
                       new Row(
                         children: <Widget>[
                           new FlatButton(
-                              onPressed: () {
-                                markers.clear();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Points()),
-                                );
+                              onPressed: () async {
+                                final PermissionHandler _permissionHandler =
+                                    PermissionHandler();
+                                var result = await _permissionHandler
+                                    .requestPermissions(
+                                        [PermissionGroup.location]);
+                                if (result[PermissionGroup.location] ==
+                                    PermissionStatus.granted) {
+                                  markers.clear();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Points()),
+                                  );
+                                }else{
+                                  _ackAlert(context);
+                                }
                               },
                               child: Column(children: <Widget>[
                                 Image.asset(

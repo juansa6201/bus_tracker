@@ -66,8 +66,8 @@ void getData(linea) async {
   });
 }
 
-void getPoint(lat, long, point) async {
-  var url = "https://200.123.180.122:5743/rest/getPuntosVentaCercanos/" + lat.toString() + "/" + long.toString() + "/" + point.toString();
+void getPoint(lat, long) async {
+  var url = "https://200.123.180.122:5743/rest/getPuntosVentaCercanos/" + lat.toString() + "/" + long.toString() + "/2";
   List points;
 
   Dio dio = new Dio();

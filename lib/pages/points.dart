@@ -17,7 +17,8 @@ class Points extends StatefulWidget {
 class _PointsState extends State<Points> {
   Position position;
   LatLng latLang;
-  int pos;
+  var result;
+
   @override
   void setState(fn) {
     if (mounted) {
@@ -35,32 +36,16 @@ class _PointsState extends State<Points> {
 
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(-31.409691, -64.190843);
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+    getLocation();
     Timer(Duration(milliseconds: 800), () {
       setState(() {
-        getPoint(position.latitude, position.longitude, 2);
+        getPoint(position.latitude, position.longitude);
       });
     });
   }
 
-  void _onGeoChanged(CameraPosition positions) {
-    if(positions.zoom > 15.0){
-      pos = 2;
-      setState(() {
-        getPoint(position.latitude, position.longitude, pos);
-
-      });
-    }else{
-      pos = 1;
-      setState(() {
-        getPoint(position.latitude, position.longitude, pos);
-
-      });
-    }
-  }
   @override
   void initState() {
     setState(() {
@@ -72,20 +57,18 @@ class _PointsState extends State<Points> {
   Widget Map() {
     var zoom = MinMaxZoomPreference(11.3, null);
     setState(() {
-      getPoint(position.latitude, position.longitude, 2);
-
+      getPoint(position.latitude, position.longitude);
     });
-    return GoogleMap(
-      myLocationEnabled: true,
-      onMapCreated: _onMapCreated,
-      minMaxZoomPreference: zoom,
-      initialCameraPosition: CameraPosition(
-        target: latLang,
-        zoom: 16,
-      ),
-      onCameraMove: _onGeoChanged,
-      markers: markersPoints,
-    );
+      return GoogleMap(
+        myLocationEnabled: true,
+        onMapCreated: _onMapCreated,
+        minMaxZoomPreference: zoom,
+        initialCameraPosition: CameraPosition(
+          target: latLang,
+          zoom: 16,
+        ),
+        markers: markersPoints,
+      );
   }
 
   @override
