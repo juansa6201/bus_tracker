@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:bus_tracker/fetch/fetch.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bus_tracker/loader/loader.dart';
 
 void main() => runApp(Points());
 
@@ -30,7 +31,7 @@ class _PointsState extends State<Points> {
     position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
-      latLang = new LatLng(position.latitude, position.longitude);
+      latLang = null;
     });
   }
 
@@ -59,34 +60,40 @@ class _PointsState extends State<Points> {
     setState(() {
       getPoint(position.latitude, position.longitude);
     });
-      return GoogleMap(
-        myLocationEnabled: true,
-        onMapCreated: _onMapCreated,
-        minMaxZoomPreference: zoom,
-        initialCameraPosition: CameraPosition(
-          target: latLang,
-          zoom: 16,
-        ),
-        markers: markersPoints,
-      );
+    return GoogleMap(
+      myLocationEnabled: true,
+      onMapCreated: _onMapCreated,
+      minMaxZoomPreference: zoom,
+      initialCameraPosition: CameraPosition(
+        target: latLang,
+        zoom: 16,
+      ),
+      markers: markersPoints,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-            title: Text('Puntos de Venta'),
-            backgroundColor: Colors.blueAccent,
-            automaticallyImplyLeading: true,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            )),
-        body: Container(
-          child: Map(),
+    if (latLang == null) {
+      return MaterialApp(
+        home: Scaffold(backgroundColor: Colors.white, body: new Center(child: ColorLoader3(),),),
+      );
+    } else {
+      return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+              title: Text('Puntos de Venta'),
+              backgroundColor: Colors.blueAccent,
+              automaticallyImplyLeading: true,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              )),
+          body: Container(
+            child: Map(),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
