@@ -31,7 +31,7 @@ class _PointsState extends State<Points> {
     position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
-      latLang = null;
+      latLang = new LatLng(position.latitude, position.longitude);
     });
   }
 
