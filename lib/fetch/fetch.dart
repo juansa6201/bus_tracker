@@ -19,7 +19,7 @@ void getData(linea) async {
     return client;
   };
   Response response = await dio.get(
-      "https://200.123.180.122:5743/rest/posicionesBuses/" +
+      "https://mrb.red-bus.com.ar/rest/posicionesBuses/" +
           linea); //CERTIFICATE_VERIFY_FAILED:ok
   buses = response.data['posiciones'];
   markers.clear();
@@ -67,7 +67,7 @@ void getData(linea) async {
 }
 
 void getPoint(lat, long) async {
-  var url = "https://200.123.180.122:5743/rest/getPuntosVentaCercanos/" + lat.toString() + "/" + long.toString() + "/2";
+  var url = "https://mrb.red-bus.com.ar/rest/getPuntosVentaCercanos/" + lat.toString() + "/" + long.toString() + "/2";
   List points;
 
   Dio dio = new Dio();

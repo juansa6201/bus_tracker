@@ -4,6 +4,7 @@ import 'package:bus_tracker/pages/home.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
   final PermissionHandler _permissionHandler =
   PermissionHandler();
   var result = await _permissionHandler

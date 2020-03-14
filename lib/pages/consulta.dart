@@ -17,7 +17,7 @@ void getSaldo() async {
     return client;
   };
   Response response = await dio.get(
-      "https://200.123.180.122:5743/rest/getSaldoCaptcha/2479739/ybpwa"); //CERTIFICATE_VERIFY_FAILED:ok
+      "https://mrb.red-bus.com.ar/rest/getSaldoCaptcha/2479739/ybpwa"); //CERTIFICATE_VERIFY_FAILED:ok
   print(response);
 
 }
