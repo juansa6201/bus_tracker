@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:bus_tracker/pages/linea.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:bus_tracker/fetch/fetch.dart';
@@ -6,8 +7,30 @@ import 'package:bus_tracker/pages/points.dart';
 import 'package:bus_tracker/fetch/fetch_ruta.dart';
 import 'package:bus_tracker/pages/consulta.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform;
 
 class FirstScreen extends StatelessWidget {
+
+  Future<void> _ackAlertIos(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("Permisos no garantizados"),
+          content: new Text("No tenemos permisos para obtener tu ubicacion"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text("Aceptar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<void> _ackAlert(BuildContext context) {
     return showDialog<void>(
@@ -45,7 +68,7 @@ class FirstScreen extends StatelessWidget {
                   new Column(
                     children: <Widget>[
                       new SizedBox(
-                          height: 200.0,
+                          height: 185.0,
                           width: 350.0,
                           child: Center(
                             child: Text(
@@ -117,8 +140,8 @@ class FirstScreen extends StatelessWidget {
                                     PermissionHandler();
                                 var result = await _permissionHandler
                                     .requestPermissions(
-                                        [PermissionGroup.location]);
-                                if (result[PermissionGroup.location] ==
+                                        [PermissionGroup.locationWhenInUse]);
+                                if (result[PermissionGroup.locationWhenInUse] ==
                                     PermissionStatus.granted) {
                                   markers.clear();
                                   Navigator.push(
@@ -127,7 +150,11 @@ class FirstScreen extends StatelessWidget {
                                         builder: (context) => Points()),
                                   );
                                 }else{
-                                  _ackAlert(context);
+                                  if (Theme.of(context).platform == TargetPlatform.android){
+                                    _ackAlert(context);
+                                  }else if(Theme.of(context).platform == TargetPlatform.iOS){
+                                    _ackAlertIos(context);
+                                  }
                                 }
                               },
                               child: Column(children: <Widget>[

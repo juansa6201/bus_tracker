@@ -10,7 +10,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Bus Tracker Cordoba"
+        android:label="Todo Bus Cordoba"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAmIK7VQsvFiwjcGoJvQTfA8am54i1xALI"/>

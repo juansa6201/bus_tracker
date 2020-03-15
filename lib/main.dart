@@ -5,11 +5,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 void main () async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final PermissionHandler _permissionHandler =
   PermissionHandler();
   var result = await _permissionHandler
       .requestPermissions(
-      [PermissionGroup.location]);
+      [PermissionGroup.locationWhenInUse]);
   print(result);
   runApp(MaterialApp(
   debugShowCheckedModeBanner: false,

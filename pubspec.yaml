@@ -20,10 +20,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.7.0"
+  flutter_launcher_name: "^0.0.1"
 
 flutter_icons:
   android: true
+  ios: true
   image_path: "assets/icon.png"
+
+flutter_launcher_name:
+  name: "Todo Bus Cordoba"
 
 flutter:
   uses-material-design: true
