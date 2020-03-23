@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     mapController = controller;
   }
 
-  List _fruits = [
+  List<String> _fruits = [
     "-",
     "Trole - Linea A",
     "Trole - Linea B",
@@ -88,11 +89,14 @@ class _MyAppState extends State<MyApp> {
   ];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _selectedFruit;
+  int _pos;
 
   @override
   void initState() {
     _dropDownMenuItems = buildAndGetDropDownMenuItems(_fruits);
     _selectedFruit = _dropDownMenuItems[0].value;
+     _pos = 0;
+
     super.initState();
   }
 
@@ -115,6 +119,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void changedDropDownItem(String selectedFruit) {
+    print(selectedFruit);
     Timer(Duration(seconds: 1), () {
       setState(() {
         getData(_selectedFruit);
@@ -149,26 +154,100 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  Widget CustomCupertinoPicker() {
+    return CupertinoPicker(
+      itemExtent: 25.0,
+      onSelectedItemChanged: (index) {
+        setState(() {
+          _selectedFruit = _dropDownMenuItems[index].value;
+        });
+        print(_selectedFruit);
+      },
+      children: List<Widget>.generate(_fruits.length, (index) {
+        return Center(
+          child: Text(_fruits[index]),
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(markers);
+    var platform = Theme.of(context).platform;
     return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-              title: Text('Lineas'),
-              backgroundColor: Colors.blueAccent,
-              automaticallyImplyLeading: true,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
-              )),
-          body: Container(
-            child: Map(),
-          ),
-          floatingActionButton: DropdownButton(
-              value: _selectedFruit,
-              items: _dropDownMenuItems,
-              onChanged: changedDropDownItem)),
-    );
+        home: Scaffold(
+            appBar: AppBar(
+                title: Text('Lineas'),
+                backgroundColor: Colors.blueAccent,
+                automaticallyImplyLeading: true,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.pop(context),
+                )),
+            body: Container(
+              child: Map(),
+            ),
+            floatingActionButton: platform == TargetPlatform.android
+                ? DropdownButton(
+                    value: _selectedFruit,
+                    items: _dropDownMenuItems,
+                    onChanged: changedDropDownItem)
+                : CupertinoButton(
+                    child: Text(_selectedFruit),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                                height: 200.0,
+                                color: Colors.white,
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      CupertinoButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          _selectedFruit = "-";
+                                          _pos = 0;
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      Expanded(
+                                        child: CupertinoPicker(
+
+                                            scrollController:
+                                                new FixedExtentScrollController(
+
+                                              initialItem: _selectedFruit == "-" ? 0: _pos,
+                                            ),
+                                            itemExtent: 32.0,
+                                            backgroundColor: Colors.white,
+                                            onSelectedItemChanged: (index) {
+                                              setState(() {
+                                                _selectedFruit =_dropDownMenuItems[index].value;
+                                                _pos = index;
+
+                                              });
+
+                                            },
+                                            children: List<Widget>.generate(
+                                                _fruits.length, (index) {
+                                              return Center(
+                                                child: Text(_fruits[index]),
+                                              );
+                                            })),
+                                      ),
+                                      CupertinoButton(
+                                          child: Text("Ok"),
+                                          onPressed: () {
+                                            changedDropDownItem(_selectedFruit);
+                                            Navigator.pop(context);
+                                          })
+                                    ]));
+                          });
+                    }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        ));
   }
 }
